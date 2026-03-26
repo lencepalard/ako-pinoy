@@ -1,8 +1,5 @@
 import type { Metadata } from 'next'
 import { Nunito, Plus_Jakarta_Sans, Inter } from 'next/font/google'
-import { ClerkProvider } from '@clerk/nextjs'
-import { ThemeProvider } from '@/components/theme-provider'
-import { TRPCProvider } from '@/lib/trpc/provider'
 import { Toaster } from 'sonner'
 import './globals.css'
 
@@ -40,23 +37,17 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({ children }: { children: React.ReactNode }): React.JSX.Element {
   return (
-    <ClerkProvider>
-      <html
-        lang="en"
-        suppressHydrationWarning
-        className={`${nunito.variable} ${plusJakartaSans.variable} ${inter.variable}`}
-      >
-        <body>
-          <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
-            <TRPCProvider>
-              {children}
-              <Toaster richColors position="top-center" />
-            </TRPCProvider>
-          </ThemeProvider>
-        </body>
-      </html>
-    </ClerkProvider>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${nunito.variable} ${plusJakartaSans.variable} ${inter.variable}`}
+    >
+      <body>
+        {children}
+        <Toaster richColors position="top-center" />
+      </body>
+    </html>
   )
 }

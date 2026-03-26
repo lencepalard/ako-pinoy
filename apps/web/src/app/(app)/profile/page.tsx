@@ -1,5 +1,4 @@
-import { currentUser } from '@clerk/nextjs/server'
-import { UserButton } from '@clerk/nextjs'
+import { getSession } from '@/lib/auth'
 
 export const metadata = { title: 'Profile' }
 
@@ -14,22 +13,36 @@ const BADGES = [
   { key: 'max_level', icon: '🇵🇭', title: 'Tunay na Pinoy', desc: 'Reached the highest level', earned: false },
 ]
 
-export default async function ProfilePage() {
-  const user = await currentUser()
+export default async function ProfilePage(): Promise<React.JSX.Element> {
+  const session = await getSession()
 
   return (
     <div style={{ maxWidth: '720px' }}>
       {/* Profile Header */}
       <div className="card" style={{ marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-        <UserButton
-          appearance={{ variables: { colorPrimary: '#0038a8' } }}
-        />
+        <div
+          style={{
+            width: '3rem',
+            height: '3rem',
+            borderRadius: '9999px',
+            background: 'linear-gradient(135deg, var(--color-ph-blue), var(--color-ocean))',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: '1.25rem',
+            color: 'white',
+            fontWeight: 800,
+            flexShrink: 0,
+          }}
+        >
+          {session?.firstName?.[0] ?? '?'}
+        </div>
         <div style={{ flex: 1 }}>
           <h1 style={{ fontFamily: 'var(--font-nunito)', fontWeight: 900, fontSize: '1.5rem', color: 'var(--color-ph-blue)', margin: '0 0 0.25rem' }}>
-            {user?.firstName} {user?.lastName}
+            {session?.firstName} {session?.lastName}
           </h1>
           <div style={{ fontFamily: 'var(--font-inter)', fontSize: '0.875rem', color: 'var(--color-text-muted)' }}>
-            {user?.emailAddresses[0]?.emailAddress}
+            {session?.email}
           </div>
         </div>
         <div style={{ textAlign: 'right' }}>
@@ -104,16 +117,16 @@ export default async function ProfilePage() {
           Ako Pinoy is free forever.
         </h3>
         <p style={{ fontFamily: 'var(--font-inter)', fontSize: '0.9375rem', color: 'var(--color-text-muted)', marginBottom: '1rem', lineHeight: 1.6 }}>
-          If this app has helped you connect with Filipino culture, consider buying us a coffee ($3–$5). Salamat!
+          If this app has helped you connect with Filipino culture, consider buying us a coffee ($3 or more). Salamat!
         </p>
         <a
-          href="https://ko-fi.com"
+          href="https://paypal.me/donateslikebuycoffee"
           target="_blank"
           rel="noopener noreferrer"
           className="btn-press btn-press-gold"
           style={{ display: 'inline-flex', textDecoration: 'none', fontSize: '0.9375rem' }}
         >
-          ☕ Mag-donate — Support ($3–$5)
+          ☕ Mag-donate — Support ($3+)
         </a>
       </div>
     </div>

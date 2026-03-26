@@ -7,7 +7,8 @@ export const userLevelEnum = pgEnum('user_level', [
 
 export const users = pgTable('users', {
   id: uuid('id').primaryKey().defaultRandom(),
-  clerkId: text('clerk_id').unique().notNull(),
+  email: text('email').unique().notNull(),
+  passwordHash: text('password_hash').notNull(),
   username: text('username').unique().notNull(),
   displayName: text('display_name'),
   avatarUrl: text('avatar_url'),

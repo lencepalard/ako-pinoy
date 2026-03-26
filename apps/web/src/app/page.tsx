@@ -1,7 +1,6 @@
 import Link from 'next/link'
-import { SignedIn, SignedOut } from '@clerk/nextjs'
 
-export default function HomePage() {
+export default function HomePage(): React.JSX.Element {
   return (
     <main className="min-h-screen" style={{ background: 'linear-gradient(135deg, #0038a8 0%, #1a52c4 50%, #0ea5e9 100%)' }}>
       {/* Navigation */}
@@ -21,28 +20,21 @@ export default function HomePage() {
           </span>
         </div>
         <div className="flex items-center gap-3">
-          <SignedOut>
-            <Link
-              href="/sign-in"
-              style={{
-                color: 'white',
-                fontFamily: 'var(--font-plus-jakarta)',
-                fontWeight: 600,
-                textDecoration: 'none',
-                padding: '0.5rem 1rem',
-              }}
-            >
-              Sign In
-            </Link>
-            <Link href="/sign-up" className="btn-press btn-press-gold" style={{ textDecoration: 'none' }}>
-              Get Started Free
-            </Link>
-          </SignedOut>
-          <SignedIn>
-            <Link href="/dashboard" className="btn-press" style={{ textDecoration: 'none' }}>
-              Go to Dashboard
-            </Link>
-          </SignedIn>
+          <Link
+            href="/sign-in"
+            style={{
+              color: 'white',
+              fontFamily: 'var(--font-plus-jakarta)',
+              fontWeight: 600,
+              textDecoration: 'none',
+              padding: '0.5rem 1rem',
+            }}
+          >
+            Sign In
+          </Link>
+          <Link href="/sign-up" className="btn-press btn-press-gold" style={{ textDecoration: 'none' }}>
+            Get Started Free
+          </Link>
         </div>
       </nav>
 
