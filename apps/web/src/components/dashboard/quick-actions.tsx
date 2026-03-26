@@ -7,7 +7,7 @@ const ACTIONS = [
   { href: '/lessons', icon: '📚', label: 'New Lesson', color: '#7c3aed' },
 ]
 
-export function QuickActions() {
+export function QuickActions(): React.JSX.Element {
   return (
     <div className="card" style={{ height: '100%' }}>
       <h3

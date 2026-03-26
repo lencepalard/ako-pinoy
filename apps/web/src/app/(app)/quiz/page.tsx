@@ -9,7 +9,7 @@ const QUIZZES = [
   { id: 'daily-1', title: 'Daily Challenge', icon: '⭐', questions: 10, xp: 40, difficulty: 'Mixed', lesson: null },
 ]
 
-export default function QuizPage() {
+export default function QuizPage(): React.JSX.Element {
   return (
     <div>
       <div style={{ marginBottom: '2rem' }}>

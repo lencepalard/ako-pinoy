@@ -13,7 +13,7 @@ const MOCK_LEADERS = [
 
 const RANK_BADGES: Record<number, string> = { 1: '🥇', 2: '🥈', 3: '🥉' }
 
-export default function LeaderboardPage() {
+export default function LeaderboardPage(): React.JSX.Element {
   return (
     <div style={{ maxWidth: '800px' }}>
       <div style={{ marginBottom: '2rem' }}>

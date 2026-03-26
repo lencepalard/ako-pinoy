@@ -67,7 +67,7 @@ const LESSON_CONTENT: Record<string, {
 
 type Props = { params: Promise<{ slug: string }> }
 
-export default async function LessonPage({ params }: Props) {
+export default async function LessonPage({ params }: Props): Promise<React.JSX.Element> {
   const { slug } = await params
   const lesson = LESSON_CONTENT[slug]
 

@@ -29,7 +29,7 @@ const DIFFICULTIES = ['All', 'Beginner', 'Intermediate', 'Advanced']
 const DIFF_COLORS: Record<string, string> = { Beginner: '#22c55e', Intermediate: '#f97316', Advanced: '#ce1126' }
 const CAT_COLORS: Record<string, string> = { Language: '#0038a8', Culture: '#f97316', Scenario: '#7c3aed' }
 
-export default function LessonsPage() {
+export default function LessonsPage(): React.JSX.Element {
   return (
     <div>
       <div style={{ marginBottom: '2rem' }}>
@@ -108,7 +108,7 @@ export default function LessonsPage() {
               className="card"
               style={{ height: '100%', cursor: 'pointer', transition: 'box-shadow 150ms' }}
             >
-              <div style={{ display: 'flex', align: 'flex-start', gap: '1rem', marginBottom: '0.875rem' }}>
+              <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem', marginBottom: '0.875rem' }}>
                 <div
                   style={{
                     width: '56px',

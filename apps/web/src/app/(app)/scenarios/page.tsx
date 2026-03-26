@@ -60,7 +60,7 @@ const SCENARIOS = [
   },
 ]
 
-export default function ScenariosPage() {
+export default function ScenariosPage(): React.JSX.Element {
   return (
     <div>
       <div style={{ marginBottom: '2rem' }}>

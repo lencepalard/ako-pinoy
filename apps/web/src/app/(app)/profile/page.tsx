@@ -35,11 +35,11 @@ export default async function ProfilePage(): Promise<React.JSX.Element> {
             flexShrink: 0,
           }}
         >
-          {session?.firstName?.[0] ?? '?'}
+          {session?.displayName?.[0] ?? '?'}
         </div>
         <div style={{ flex: 1 }}>
           <h1 style={{ fontFamily: 'var(--font-nunito)', fontWeight: 900, fontSize: '1.5rem', color: 'var(--color-ph-blue)', margin: '0 0 0.25rem' }}>
-            {session?.firstName} {session?.lastName}
+            {session?.displayName}
           </h1>
           <div style={{ fontFamily: 'var(--font-inter)', fontSize: '0.875rem', color: 'var(--color-text-muted)' }}>
             {session?.email}

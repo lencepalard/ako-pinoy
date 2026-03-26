@@ -56,7 +56,7 @@ const QUIZ_QUESTIONS = [
   },
 ]
 
-export default function QuizPage() {
+export default function QuizPage(): React.JSX.Element {
   const [currentQ, setCurrentQ] = useState(0)
   const [selected, setSelected] = useState<number | null>(null)
   const [checked, setChecked] = useState(false)

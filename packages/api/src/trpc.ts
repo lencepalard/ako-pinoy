@@ -18,12 +18,11 @@ const t = initTRPC.context<Context>().create({
 
 export const createTRPCRouter = t.router
 export const createCallerFactory = t.createCallerFactory
-export const createTRPCContext = t.createContext
 
 // Public procedure — no auth required
 export const publicProcedure = t.procedure
 
-// Protected procedure — requires Clerk auth
+// Protected procedure — requires session auth
 export const protectedProcedure = t.procedure.use(async ({ ctx, next }) => {
   if (!ctx.userId) {
     throw new TRPCError({ code: 'UNAUTHORIZED' })

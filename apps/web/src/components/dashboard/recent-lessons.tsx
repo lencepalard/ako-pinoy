@@ -21,7 +21,7 @@ const CAT_COLORS: Record<string, string> = {
   Scenario: '#7c3aed',
 }
 
-export function RecentLessons() {
+export function RecentLessons(): React.JSX.Element {
   return (
     <div className="card">
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem' }}>

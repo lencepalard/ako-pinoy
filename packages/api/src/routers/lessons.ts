@@ -1,7 +1,7 @@
 import { z } from 'zod'
-import { eq, and } from 'drizzle-orm'
+import { eq } from 'drizzle-orm'
 import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc'
-import { lessons, userProgress, users } from '@ako-pinoy/db'
+import { userProgress, users } from '@ako-pinoy/db'
 
 export const lessonsRouter = createTRPCRouter({
   list: publicProcedure
@@ -36,7 +36,7 @@ export const lessonsRouter = createTRPCRouter({
     .input(z.object({ lessonId: z.string().uuid(), score: z.number().int().min(0).max(100), xpEarned: z.number().int() }))
     .mutation(async ({ ctx, input }) => {
       const user = await ctx.db.query.users.findFirst({
-        where: eq(users.clerkId, ctx.userId),
+        where: eq(users.id, ctx.userId!),
       })
       if (!user) throw new Error('User not found')
 
@@ -55,7 +55,6 @@ export const lessonsRouter = createTRPCRouter({
           set: { completed: true, score: input.score, xpEarned: input.xpEarned, completedAt: new Date() },
         })
 
-      // Add XP
       const newXP = user.xp + input.xpEarned
       await ctx.db.update(users).set({ xp: newXP, lastActiveAt: new Date() }).where(eq(users.id, user.id))
 
@@ -63,13 +62,8 @@ export const lessonsRouter = createTRPCRouter({
     }),
 
   myProgress: protectedProcedure.query(async ({ ctx }) => {
-    const user = await ctx.db.query.users.findFirst({
-      where: eq(users.clerkId, ctx.userId),
-    })
-    if (!user) return []
-
     return ctx.db.query.userProgress.findMany({
-      where: eq(userProgress.userId, user.id),
+      where: eq(userProgress.userId, ctx.userId!),
       with: { lesson: true },
     })
   }),

@@ -7,7 +7,7 @@ import { getLevelFromXP } from '@ako-pinoy/types'
 export const usersRouter = createTRPCRouter({
   me: protectedProcedure.query(async ({ ctx }) => {
     const user = await ctx.db.query.users.findFirst({
-      where: eq(users.clerkId, ctx.userId),
+      where: eq(users.id, ctx.userId!),
       with: {
         achievements: { with: { achievement: true } },
       },
@@ -18,42 +18,24 @@ export const usersRouter = createTRPCRouter({
   upsert: protectedProcedure
     .input(
       z.object({
-        username: z.string().min(3).max(30),
         displayName: z.string().max(50).optional(),
         avatarUrl: z.string().url().optional(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const existing = await ctx.db.query.users.findFirst({
-        where: eq(users.clerkId, ctx.userId),
-      })
-
-      if (existing) {
-        const [updated] = await ctx.db
-          .update(users)
-          .set({ displayName: input.displayName, avatarUrl: input.avatarUrl })
-          .where(eq(users.clerkId, ctx.userId))
-          .returning()
-        return updated
-      }
-
-      const [created] = await ctx.db
-        .insert(users)
-        .values({
-          clerkId: ctx.userId,
-          username: input.username,
-          displayName: input.displayName,
-          avatarUrl: input.avatarUrl,
-        })
+      const [updated] = await ctx.db
+        .update(users)
+        .set({ displayName: input.displayName, avatarUrl: input.avatarUrl })
+        .where(eq(users.id, ctx.userId!))
         .returning()
-      return created
+      return updated
     }),
 
   addXP: protectedProcedure
     .input(z.object({ amount: z.number().int().positive() }))
     .mutation(async ({ ctx, input }) => {
       const user = await ctx.db.query.users.findFirst({
-        where: eq(users.clerkId, ctx.userId),
+        where: eq(users.id, ctx.userId!),
       })
       if (!user) throw new Error('User not found')
 
@@ -63,7 +45,7 @@ export const usersRouter = createTRPCRouter({
       const [updated] = await ctx.db
         .update(users)
         .set({ xp: newXP, level: newLevel, lastActiveAt: new Date() })
-        .where(eq(users.clerkId, ctx.userId))
+        .where(eq(users.id, ctx.userId!))
         .returning()
 
       return { xp: newXP, level: newLevel, leveledUp: newLevel !== user.level, user: updated }
@@ -75,7 +57,7 @@ export const usersRouter = createTRPCRouter({
       return ctx.db.query.users.findMany({
         orderBy: (u, { desc }) => [desc(u.xp)],
         limit: input.limit,
-        columns: { clerkId: false },
+        columns: { passwordHash: false },
       })
     }),
 })

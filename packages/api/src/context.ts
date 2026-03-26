@@ -1,8 +1,8 @@
-import { auth } from '@clerk/nextjs/server'
 import { db } from '@ako-pinoy/db'
 
 export async function createContext({ req }: { req: Request }) {
-  const { userId } = await auth()
+  // userId is the real DB user ID, passed via request header
+  const userId = req.headers.get('x-user-id') ?? null
   return { db, userId, req }
 }
 

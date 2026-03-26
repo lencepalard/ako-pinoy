@@ -43,7 +43,7 @@ const CAT_COLORS: Record<string, string> = {
   'Daily Life': '#0ea5e9', Culture: '#f97316',
 }
 
-export default function VocabularyPage() {
+export default function VocabularyPage(): React.JSX.Element {
   return (
     <div>
       <div style={{ marginBottom: '2rem' }}>

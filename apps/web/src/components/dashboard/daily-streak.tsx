@@ -2,7 +2,7 @@
 
 const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 
-export function DailyStreak() {
+export function DailyStreak(): React.JSX.Element {
   const today = new Date().getDay() // 0=Sun
   const todayIdx = today === 0 ? 6 : today - 1
 

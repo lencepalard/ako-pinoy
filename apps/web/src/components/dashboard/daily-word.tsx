@@ -10,7 +10,7 @@ const DAILY_WORDS = [
   { tagalog: 'Sige', english: 'Okay / Go ahead', pronunciation: 'SI-ge', category: 'Daily Life' },
 ]
 
-export function DailyWord() {
+export function DailyWord(): React.JSX.Element {
   const dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0).getTime()) / 86400000)
   const word = DAILY_WORDS[dayOfYear % DAILY_WORDS.length]!
 

@@ -9,7 +9,7 @@ const FEATURED_CULTURE = {
   href: '/culture/bayanihan',
 }
 
-export function CultureCard() {
+export function CultureCard(): React.JSX.Element {
   return (
     <div
       className="card"

@@ -10,7 +10,7 @@ export const metadata = { title: 'Dashboard' }
 
 export default async function DashboardPage(): Promise<React.JSX.Element> {
   const session = await getSession()
-  const firstName = session?.firstName ?? 'Kaibigan'
+  const firstName = session?.displayName?.split(' ')[0] ?? 'Kaibigan'
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>

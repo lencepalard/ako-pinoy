@@ -86,7 +86,7 @@ const CAT_COLORS: Record<string, string> = {
   Family: '#ec4899',
 }
 
-export default function CulturePage() {
+export default function CulturePage(): React.JSX.Element {
   return (
     <div>
       <div style={{ marginBottom: '2rem' }}>

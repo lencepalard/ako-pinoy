@@ -8,7 +8,7 @@ const LEVELS = [
   { name: 'Tunay na Pinoy', tagalog: 'True Filipino', xpRequired: 10000, color: '#fcd116' },
 ]
 
-export function XPProgress() {
+export function XPProgress(): React.JSX.Element {
   const currentXP = 0
   const currentLevel = LEVELS[0]!
   const nextLevel = LEVELS[1]!
@@ -16,7 +16,7 @@ export function XPProgress() {
 
   return (
     <div className="card" style={{ height: '100%' }}>
-      <div style={{ display: 'flex', align: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
         <div>
           <span className="level-chip">{currentLevel.name}</span>
           <p style={{ fontFamily: 'var(--font-inter)', fontSize: '0.8125rem', color: 'var(--color-text-muted)', marginTop: '0.5rem', marginBottom: 0 }}>

@@ -1,7 +1,7 @@
 import { z } from 'zod'
 import { eq, and, lte } from 'drizzle-orm'
 import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc'
-import { vocabulary, vocabularyReviews, users } from '@ako-pinoy/db'
+import { vocabularyReviews } from '@ako-pinoy/db'
 import { fsrsSchedule } from '../lib/fsrs'
 
 export const vocabularyRouter = createTRPCRouter({
@@ -21,12 +21,9 @@ export const vocabularyRouter = createTRPCRouter({
     }),
 
   dueReviews: protectedProcedure.query(async ({ ctx }) => {
-    const user = await ctx.db.query.users.findFirst({ where: eq(users.clerkId, ctx.userId) })
-    if (!user) return []
-
     return ctx.db.query.vocabularyReviews.findMany({
       where: and(
-        eq(vocabularyReviews.userId, user.id),
+        eq(vocabularyReviews.userId, ctx.userId!),
         lte(vocabularyReviews.dueDate, new Date()),
       ),
       with: { vocab: true },
@@ -40,12 +37,9 @@ export const vocabularyRouter = createTRPCRouter({
       rating: z.enum(['again', 'hard', 'good', 'easy']),
     }))
     .mutation(async ({ ctx, input }) => {
-      const user = await ctx.db.query.users.findFirst({ where: eq(users.clerkId, ctx.userId) })
-      if (!user) throw new Error('User not found')
-
       const existing = await ctx.db.query.vocabularyReviews.findFirst({
         where: and(
-          eq(vocabularyReviews.userId, user.id),
+          eq(vocabularyReviews.userId, ctx.userId!),
           eq(vocabularyReviews.vocabId, input.vocabId),
         ),
       })
@@ -60,7 +54,7 @@ export const vocabularyRouter = createTRPCRouter({
           .where(eq(vocabularyReviews.id, existing.id))
       } else {
         await ctx.db.insert(vocabularyReviews).values({
-          userId: user.id,
+          userId: ctx.userId!,
           vocabId: input.vocabId,
           ...next,
           lastReview: new Date(),

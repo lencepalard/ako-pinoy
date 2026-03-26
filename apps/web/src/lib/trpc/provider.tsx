@@ -7,7 +7,8 @@ import { useState } from 'react'
 import superjson from 'superjson'
 import type { AppRouter } from '@ako-pinoy/api'
 
-export const trpc = createTRPCReact<AppRouter>()
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const trpc: ReturnType<typeof createTRPCReact<AppRouter>> = createTRPCReact<AppRouter>()
 
 function getBaseUrl() {
   if (typeof window !== 'undefined') return ''
@@ -15,7 +16,7 @@ function getBaseUrl() {
   return `http://localhost:${process.env.PORT ?? 3000}`
 }
 
-export function TRPCProvider({ children }: { children: React.ReactNode }) {
+export function TRPCProvider({ children }: { children: React.ReactNode }): React.JSX.Element {
   const [queryClient] = useState(
     () =>
       new QueryClient({
