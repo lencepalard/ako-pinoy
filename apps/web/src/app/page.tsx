@@ -5,7 +5,7 @@ export default function HomePage(): React.JSX.Element {
     <main className="min-h-screen" style={{ background: 'linear-gradient(135deg, #0038a8 0%, #1a52c4 50%, #0ea5e9 100%)' }}>
       {/* Navigation */}
       <nav className="flex items-center justify-between px-6 py-4 max-w-6xl mx-auto">
-        <div className="flex items-center gap-2">
+        <Link href="https://ako-pinoy-web.vercel.app/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
           <span style={{ fontSize: '2rem' }}>🇵🇭</span>
           <span
             style={{
@@ -18,7 +18,7 @@ export default function HomePage(): React.JSX.Element {
           >
             Ako Pinoy
           </span>
-        </div>
+        </Link>
         <div className="flex items-center gap-3">
           <Link
             href="/sign-in"
